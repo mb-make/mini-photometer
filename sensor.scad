@@ -3,6 +3,14 @@ include <config.scad>;
 use <pins.scad>;
 
 
+/**
+ * Seeedstudio Grove module:
+ * Digital light sensor with AMS TSL2561
+ *
+ * https://wiki.seeedstudio.com/Grove-Digital_Light_Sensor/
+ * https://wiki.seeedstudio.com/Grove_System/
+ * https://ams.com/tsl2561
+ */
 module sensor_pcb(
             // PCB outline
             pcb_color = "darkblue",
