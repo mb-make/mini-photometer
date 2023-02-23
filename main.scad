@@ -93,18 +93,18 @@ translate ([-2*b,14.5*b,0]) square([11*b,b],center= true);
 module beschriftungen(){ // Beschriftungen an den Gehäuseseiten anbringen
 translate ([ds+bi/2,ds+li+ds-tb,30]) rotate([90,180,180]) { // Hinten - Beschriftung mit HAW Photometer
 linear_extrude(height = tb){
-translate ([-10,19-6.0/2,0]) haw_logo(6);
-translate ([6,19,0]) text("HAW",
+//translate ([-10,19-6.0/2,0]) haw_logo(6);
+translate ([1,19,0]) text("MAX",
 font = "Liberation Sans:style=Bold", size = 6.25, valign = "center", halign = "center");
 translate ([0,12,0]) text("Photometer",
 font = "Liberation Sans:style=Bold", size = 4.5, valign = "center", halign = "center");}}
 translate ([ds+bi/2,tb,30]) rotate([90,180,0]) { // Vorne - Beschriftung mit HAW Logo
 linear_extrude(height = tb){
-translate ([3,15,0]) text("HAW",
+translate ([3,15,0]) text("MAX",
 font = "Liberation Sans:style=Bold", size = 7.0, valign = "center", halign = "center");
-translate ([0,6,0]) text("Hamburg",
-font = "Liberation Sans:style=Bold", size = 4.5, valign = "center", halign = "center");
-translate ([0,20,0]) haw_logo(7.0);}}
+translate ([0,6,0]) text("Photometer", font = "Liberation Sans:style=Bold", size = 4.5, valign = "center", halign = "center");
+//translate ([0,20,0]) haw_logo(7.0);
+    }}
 translate ([tb,ds+li/2,30]) rotate([270,0,90]) {// Links - In diesem Block ist Platz für eine Gerätenummer oder ein eigenes Logo
 linear_extrude(height = tb){translate ([0,15,0]) text("",
 font = "Liberation Sans:style=Bold", size = 6.0, valign = "center", halign = "center");}}
