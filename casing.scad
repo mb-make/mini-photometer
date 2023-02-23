@@ -53,6 +53,23 @@ module beschriftungen()
 }
 
 
+module arrow()
+{
+    linear_extrude(height = tb)
+    {
+        difference()
+        { // Beschriftung Pfeil
+            polygon(points = [[bpf, 0], [0, bpf], [1 / 2 * bpf, bpf], [bpf / 2, bpf + lpf],
+                                [3 * bpf / 2, bpf + lpf], [3 * bpf / 2, bpf], [2 * bpf, bpf]]);
+            polygon(points =
+                        [[bpf, sqrt(2) * dpf], [sqrt(2) * dpf + dpf, bpf - dpf], [1 / 2 * bpf + dpf, bpf - dpf],
+                            [bpf / 2 + dpf, bpf + lpf - dpf], [3 * bpf / 2 - dpf, bpf + lpf - dpf],
+                            [3 * bpf / 2 - dpf, bpf - dpf], [2 * bpf - sqrt(2) * dpf - dpf, bpf - dpf]]);
+        }
+    }
+}
+
+
 module casing()
 {
 	difference()
@@ -61,10 +78,10 @@ module casing()
 		roundcube(ds + bi + ds, ds + li + ds, ds + hi + dd, kr); // Außenhülle
 
 		translate([ ds, ds, ds ])
-		cube([ bi, li, hi + dd ]); // Innenraum
+		cube([ bi, li-0.9, hi + dd ]); // Innenraum
 
-		translate([ ds + bi + ds - bu, 0, ds + hi / 2 - hu / 2 ])
-		cube([ bu, ds + tu, hu ]); // USB Anschluss
+		translate([ ds+bi+ds-bu+2.0, 0, ds + hi / 2 - hu / 2 ])
+		cube([ bu-2.0, ds + tu, hu ]); // USB Anschluss
 
 		translate([ ds, 0, ds + hi ])
 		cube([ bi, ds + li + ds, dd ]); // Deckelloch
@@ -75,41 +92,19 @@ module casing()
 		kuevettenloch();
 
 		translate([ ds + kk / 2 - bpf + (hls - asc - kk / 2), ds + bs + wi + kk + wi + apf, 0 ])
-		linear_extrude(height = tb)
-		{
-			difference()
-			{ // Beschriftung Pfeil
-				polygon(points = [[bpf, 0], [0, bpf], [1 / 2 * bpf, bpf], [bpf / 2, bpf + lpf],
-				                  [3 * bpf / 2, bpf + lpf], [3 * bpf / 2, bpf], [2 * bpf, bpf]]);
-				polygon(points =
-				            [[bpf, sqrt(2) * dpf], [sqrt(2) * dpf + dpf, bpf - dpf], [1 / 2 * bpf + dpf, bpf - dpf],
-				             [bpf / 2 + dpf, bpf + lpf - dpf], [3 * bpf / 2 - dpf, bpf + lpf - dpf],
-				             [3 * bpf / 2 - dpf, bpf - dpf], [2 * bpf - sqrt(2) * dpf - dpf, bpf - dpf]]);
-			}
-		}
+        arrow();
+
 		beschriftungen();
 	}
 
-	translate([ shift_x, 0 ,0 ])
-	difference()
-	{ // Führung für Platinen (zwischen den Platinen) mit Aussparung für die USB Buchse
-		translate([ ds + bi - dw - bf, ds, ds ])
-		cube([ bf, lf, hi ]); // Außen
-		translate([ ds + bi - dw - bf + wi, ds, ds ])
-		cube([ bf - 2 * wi, lf + wi, hi ]); // Innen
-		translate([ ds + bi + ds - bu, 0, ds + hi / 2 - hu / 2 ])
-		cube([ bu, ds + tu, hu ]); // USB
-	}
-
-
-	translate([ shift_x, 0 ,0 ])
+	translate([ 1.7, 0 , 0 ])
 	difference()
 	{ // Küvettenführung und LED Halter
 		union()
 		{
 			if (kmode == 0)
-				translate([ ds - wi + (hls - asc - kk / 2) - zs * wi, ds + bs, ds + nothing ])
-				cube([ kk + 2 * wi + zs * wi, kk + 2 * wi, hi - 2*nothing ]); // eckige Küvettenführung
+				translate([ ds - wi + (hls - asc - kk / 2) - zs * wi, ds + bs - 1.0, ds + nothing ])
+				cube([ kk + 2 * wi + zs * wi, kk + 2 * wi + 1.0, hi - 2*nothing ]); // eckige Küvettenführung
 			if (kmode == 1)
 				translate([ ds + (hls - asc), ds + bs + wi + kk / 2, ds ])
 				cylinder(d = kk + 2 * wi, h = hi); // runde Küvettenführung
@@ -124,30 +119,37 @@ module casing()
 				translate([ ds + hls - asc + bl / 2, ds + bs + wi + kk, 0 ])
 				cube([ wi + (kk - bl) / 2, 4 * wi, ds + hi ]); // Küvetten Haltefeder Aussparung rechts
 		}
+
 		if (kmode == 0)
-			translate([ ds + (hls - asc - kk / 2), ds + bs + wi, ds ])
-		cube([ kk, kk, hi ]); // eckige Küvettenführung Bodendurchbruch
+			translate([ ds + (hls - asc - kk / 2), ds + bs + wi + nothing, ds ])
+	    	cube([ kk, kk, hi ]); // eckige Küvettenführung Bodendurchbruch
 		if (kmode == 1)
 			translate([ ds + (hls - asc), ds + bs + wi + kk / 2, ds ])
-		cylinder(d = kk, h = hi); // runde Küvettenführung Bodendurchbruch
+    		cylinder(d = kk, h = hi); // runde Küvettenführung Bodendurchbruch
+
 		translate([ ds - wi + kk / 2 - bl / 2 + wi + (hls - asc - kk / 2), ds + bs + 2 * wi + kk, ds + hi / 2 ])
 		cube([ bl, ll + 2 * wi, hi / 2 ]); // LED Halter Aussparung
+
 		translate([ ds - wi + kk / 2 + wi + (hls - asc - kk / 2), ds + bs + (-2) * wi + kk + 4 * wi, ds + hi / 2 ])
 		rotate([ -90, 0, 0 ])
 		cylinder(h = ll + 3 * wi, d = bl); // LED Aussparung
+
 		translate([ ds - wi + kk / 2 + wi + (hls - asc - kk / 2), ds + bs + (-2) * wi + kk + 0 * wi, ds + hi / 2 ])
 		rotate([ -90, 0, 0 ])
 		cylinder(h = ll + 3 * wi,
-		         d = lla); // LED Lichtweg Austrittsöffnung
+		         d = lla+1.5); // LED Lichtweg Austrittsöffnung
+
 		hull()
 		{
 			translate([ ds - wi + kk / 2 + wi + (hls - asc - kk / 2), ds + bs, ds + hsmp + dc / 2 ])
 			rotate([ -90, 0, 0 ])
 			cylinder(h = 2 * wi, d = dc); // Sensor Lichtweg
-			translate([ ds - wi + kk / 2 + wi + (hls - asc - kk / 2), ds + bs, ds + hsmp - dc / 2 ])
+
+			translate([ ds - wi + kk / 2 + wi + (hls - asc - kk / 2), ds + bs - 1.5, ds + hsmp - dc / 2 ])
 			rotate([ -90, 0, 0 ])
 			cylinder(h = 2 * wi, d = dc); // Sensor Lichtweg
 		}
+
 		if (zs > 0.0)
 		{
 			hull()
@@ -170,12 +172,16 @@ module casing()
 			translate([ ds + hls - asc + bl / 2 + wi, ds + bs + wi + kk, 0 ])
 		cube([ (kk - bl) / 2 - wi, 3 * wi, ds + hi + dd ]); // Küvetten Haltefeder Aussparung rechts
 	}
-	if (kmode == 0)
-		translate([ ds + hls - asc - kk / 2 + (kk / 2 - wi - bl / 2) / 2 - b_khf / 2, ds + bs + wi + kk + wi, 0 ])
-		feder(); // Küvetten Haltefeder links
-	if (kmode == 0)
-		translate([ ds + hls - asc + kk / 2 - (kk / 2 - wi - bl / 2) / 2 - b_khf / 2, ds + bs + wi + kk + wi, 0 ])
-		feder(); // Küvetten Haltefeder rechts
+
+    translate([1.5, 0, 0])
+    {
+        if (kmode == 0)
+            translate([ ds + hls - asc - kk / 2 + (kk / 2 - wi - bl / 2) / 2 - b_khf / 2, ds + bs + wi + kk + wi, 0 ])
+            feder(); // Küvetten Haltefeder links
+        if (kmode == 0)
+            translate([ ds + hls - asc + kk / 2 - (kk / 2 - wi - bl / 2) / 2 - b_khf / 2, ds + bs + wi + kk + wi, 0 ])
+            feder(); // Küvetten Haltefeder rechts
+    }
 
 	// translate([ ds + bi - duw, ds + afu, ds ])
 	// cube([ duw, wi, hi ]); // Platinenführung unter D1 mini

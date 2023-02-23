@@ -17,7 +17,7 @@ module led_socket(
             led_color = "red",
             led_d = led_diameter,
             led_h = 11.0,
-            led_z = 15.0
+            led_z = 16.0
         )
 {
     led_x = pin_count/2 * pin_spacing;
