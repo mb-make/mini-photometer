@@ -42,8 +42,7 @@ dc = 3.0; //4.0; // Duchmesser der Öffnung für den Sensor Chip
 asc= 12.0; // Abstand der Mitte des Sensorchips von der Unterkante seiner Platine (GY-2561 oder BH1750 mit 2 Löchern) (X)
 //asc= 10.0; // Abstand der Mitte des Sensorchips von der Unterkante seiner Platine (TSL2561 mit 3 Löchern) (X)
 //asc= 11.2; // Abstand der Mitte des Sensorchips von der Unterkante seiner Platine (Adafruit TSL2561 Lux Sensor) (X)
-hsmp = hi/2+2.54/2; // Höhe des Sensormmittelpunkts (der Sensor ist um einen Halbe Rasterbreite gegenüber dem Baugruppenmittelpunkt
-verschoben) (Z)
+hsmp = hi/2+2.54/2; // Höhe des Sensormmittelpunkts (der Sensor ist um einen Halbe Rasterbreite gegenüber dem Baugruppenmittelpunkt verschoben) (Z)
 // Führung für Platinen
 dw = 5.0; // Dicke für D1 mini (X)
 bf = 10.0; // Breite Führungsblock (X)
@@ -90,7 +89,6 @@ translate ([ 2*b, 8.5*b,0]) square([11*b,b],center= true);
 translate ([-2*b,10.5*b,0]) square([11*b,b],center= true);
 translate ([ 2*b,12.5*b,0]) square([11*b,b],center= true);
 translate ([-2*b,14.5*b,0]) square([11*b,b],center= true);
-- 27 -
 }
 module beschriftungen(){ // Beschriftungen an den Gehäuseseiten anbringen
 translate ([ds+bi/2,ds+li+ds-tb,30]) rotate([90,180,180]) { // Hinten - Beschriftung mit HAW Photometer
@@ -107,12 +105,10 @@ font = "Liberation Sans:style=Bold", size = 7.0, valign = "center", halign = "ce
 translate ([0,6,0]) text("Hamburg",
 font = "Liberation Sans:style=Bold", size = 4.5, valign = "center", halign = "center");
 translate ([0,20,0]) haw_logo(7.0);}}
-translate ([tb,ds+li/2,30]) rotate([270,0,90]) {// Links - In diesem Block ist Platz für eine Gerätenummer oder ein eigenes
-Logo
+translate ([tb,ds+li/2,30]) rotate([270,0,90]) {// Links - In diesem Block ist Platz für eine Gerätenummer oder ein eigenes Logo
 linear_extrude(height = tb){translate ([0,15,0]) text("",
 font = "Liberation Sans:style=Bold", size = 6.0, valign = "center", halign = "center");}}
-translate ([2*ds+bi-tb,ds+li/2,30]) rotate([90,180,90]) {// Rechts - In diesem Block ist Platz für eine Gerätenummer oder
-ein eigenes Logo
+translate ([2*ds+bi-tb,ds+li/2,30]) rotate([90,180,90]) {// Rechts - In diesem Block ist Platz für eine Gerätenummer oder ein eigenes Logo
 linear_extrude(height = tb){translate ([0,15,0]) text("",
 font = "Liberation Sans:style=Bold", size = 6.0, valign = "center", halign = "center");}}
 }
@@ -136,8 +132,7 @@ translate([ds+bi+ds-bu,0,ds+hi/2-hu/2]) cube([bu,ds+tu,hu]); // USB Anschluss
 translate([ds ,0,ds+hi]) cube([ bi ,ds+li+ds,dd ]); // Deckelloch
 translate([ds-df,0,ds+hi]) cube([df+bi+df,ds+li+ds,dd/2]); // Deckelführung
 if(kmode==0) translate([ds+(hls-asc-kk/2),ds+bs+wi ,0]) cube([kk,kk,ds]); // eckige Küvettenführung Bodendurchbruch
-if(kmode==0 && zs>0.0) translate([ds-wi+(hls-asc-kk/2)-zs*wi/4,ds+bs+wi,0]) cube([wi/2,kk,hi+2*ds]); // Filteraussparung bei
-eckiger Küvettenführung
+if(kmode==0 && zs>0.0) translate([ds-wi+(hls-asc-kk/2)-zs*wi/4,ds+bs+wi,0]) cube([wi/2,kk,hi+2*ds]); // Filteraussparung bei eckiger Küvettenführung
 if(kmode==1) translate([ds+(hls-asc ),ds+bs+wi+kk/2,0]) cylinder(d=kk,h=ds);// runde Küvettenführung Bodendurchbruch
 translate([ds+kk/2-bpf+(hls-asc-kk/2),ds+bs+wi+kk+wi+apf,0]) linear_extrude(height = tb){difference(){ // Beschriftung Pfeil
 polygon(points=[[bpf,0],[0,bpf],[1/2*bpf,bpf],[bpf/2,bpf+lpf],[3*bpf/2,bpf+lpf],[3*bpf/2,bpf],[2*bpf,bpf]]);
@@ -155,16 +150,13 @@ union(){
 if(kmode==0) translate([ds-wi+(hls-asc-kk/2)-zs*wi,ds+bs ,ds]) cube([kk+2*wi+zs*wi,kk+2*wi,hi]); // eckige Küvettenführung
 if(kmode==1) translate([ds+(hls-asc) ,ds+bs+wi+kk/2,ds]) cylinder(d=kk+2*wi,h=hi); // runde Küvettenführung
 translate([ds-wi+kk/2-bl/2+(hls-asc-kk/2),ds+bs+0*wi+kk,ds]) cube([wi+bl+wi,ll+wi,hi]); // LED Halter Block
-if(kmode==0) translate([ds+hls-asc-kk/2-wi ,ds+bs+wi+kk,0]) cube([wi+(kk-bl)/2,4*wi, ds+hi]); // Küvetten Haltefeder
-Aussparung links
-if(kmode==0) translate([ds+hls-asc+bl/2 ,ds+bs+wi+kk,0]) cube([wi+(kk-bl)/2,4*wi, ds+hi]); // Küvetten Haltefeder
-Aussparung rechts
+if(kmode==0) translate([ds+hls-asc-kk/2-wi ,ds+bs+wi+kk,0]) cube([wi+(kk-bl)/2,4*wi, ds+hi]); // Küvetten Haltefeder Aussparung links
+if(kmode==0) translate([ds+hls-asc+bl/2 ,ds+bs+wi+kk,0]) cube([wi+(kk-bl)/2,4*wi, ds+hi]); // Küvetten Haltefeder Aussparung rechts
 }
 if(kmode==0) translate([ds+(hls-asc-kk/2),ds+bs+wi ,ds]) cube([kk,kk,hi]); // eckige Küvettenführung Bodendurchbruch
 if(kmode==1) translate([ds+(hls-asc) ,ds+bs+wi+kk/2,ds]) cylinder(d=kk,h=hi); // runde Küvettenführung Bodendurchbruch
 translate([ds-wi+kk/2-bl/2+wi+(hls-asc-kk/2),ds+bs+2*wi+kk,ds+hi/2]) cube([bl,ll+2*wi,hi/2]); // LED Halter Aussparung
-translate([ds-wi+kk/2 +wi+(hls-asc-kk/2),ds+bs+(-2)*wi+kk+4*wi,ds+hi/2]) rotate ([-90,0,0]) cylinder(h=ll+3*wi, d=bl); //
-LED Aussparung
+translate([ds-wi+kk/2 +wi+(hls-asc-kk/2),ds+bs+(-2)*wi+kk+4*wi,ds+hi/2]) rotate ([-90,0,0]) cylinder(h=ll+3*wi, d=bl); // LED Aussparung
 translate([ds-wi+kk/2 +wi+(hls-asc-kk/2),ds+bs+(-2)*wi+kk+0*wi,ds+hi/2]) rotate ([-90,0,0]) cylinder(h=ll+3*wi,
 d=lla); // LED Lichtweg Austrittsöffnung
 hull(){
@@ -173,18 +165,13 @@ translate([ds-wi+kk/2+wi+(hls-asc-kk/2),ds+bs,ds+hsmp-dc/2]) rotate ([-90,0,0]) 
 }
 if(zs>0.0) {
 hull(){
-translate([ds+(hls-asc)-kk/2-2*wi,ds+bs+wi+kk/2-dc/2,ds+hsmp+dc/2]) rotate ([0,90,0]) cylinder(h=3*wi, d=dc); // Zweiter
-Sensor Lichtweg
-translate([ds+(hls-asc)-kk/2-2*wi,ds+bs+wi+kk/2+dc/2,ds+hsmp-dc/2]) rotate ([0,90,0]) cylinder(h=3*wi, d=dc); // Zweiter
-Sensor Lichtweg
+translate([ds+(hls-asc)-kk/2-2*wi,ds+bs+wi+kk/2-dc/2,ds+hsmp+dc/2]) rotate ([0,90,0]) cylinder(h=3*wi, d=dc); // Zweiter Sensor Lichtweg
+translate([ds+(hls-asc)-kk/2-2*wi,ds+bs+wi+kk/2+dc/2,ds+hsmp-dc/2]) rotate ([0,90,0]) cylinder(h=3*wi, d=dc); // Zweiter Sensor Lichtweg
 };
-if(kmode==0) translate([ds-wi+(hls-asc-kk/2)-zs*wi/4,ds+bs+wi,0]) cube([wi/2,kk,hi+2*ds]); // Filteraussparung bei eckiger
-Küvettenführung
+if(kmode==0) translate([ds-wi+(hls-asc-kk/2)-zs*wi/4,ds+bs+wi,0]) cube([wi/2,kk,hi+2*ds]); // Filteraussparung bei eckiger Küvettenführung
 };
-if(kmode==0) translate([ds+hls-asc-kk/2 ,ds+bs+wi+kk,0]) cube([(kk-bl)/2-wi,3*wi, ds+hi+dd]); // Küvetten Haltefeder Aussparung
-links
-if(kmode==0) translate([ds+hls-asc+bl/2+wi ,ds+bs+wi+kk,0]) cube([(kk-bl)/2-wi,3*wi, ds+hi+dd]); // Küvetten Haltefeder Aussparung
-rechts
+if(kmode==0) translate([ds+hls-asc-kk/2 ,ds+bs+wi+kk,0]) cube([(kk-bl)/2-wi,3*wi, ds+hi+dd]); // Küvetten Haltefeder Aussparung links
+if(kmode==0) translate([ds+hls-asc+bl/2+wi ,ds+bs+wi+kk,0]) cube([(kk-bl)/2-wi,3*wi, ds+hi+dd]); // Küvetten Haltefeder Aussparung rechts
 }
 if(kmode==0) translate([ds+hls-asc-kk/2+(kk/2-wi-bl/2)/2-b_khf/2,ds+bs+wi+kk+wi,0]) feder(); // Küvetten Haltefeder links
 if(kmode==0) translate([ds+hls-asc+kk/2-(kk/2-wi-bl/2)/2-b_khf/2,ds+bs+wi+kk+wi,0]) feder(); // Küvetten Haltefeder rechts
@@ -193,7 +180,6 @@ translate([ds+bi/2-lr/2+tr/2,ds+tr/2 ,ds+hi ]) sphere(, d=tr); // Rastnase 1 Run
 translate([ds+bi/2-lr/2 ,ds ,ds+hi-tr]) cube([tr,tr,tr]); // Rastnase 1 Halter
 translate([ds+bi/2-lr/2 ,ds ,ds+hi-tr]) rotate ([-90,0,-90]) cylinder(h=tr, d=2*tr); // Rastnase 1 Rundung unten
 translate([ds+bi/2+lr/2-tr/2,ds+tr/2 ,ds+hi ]) sphere(, d=tr); // Rastnase 1 Rundung oben
-- 28 -
 translate([ds+bi/2+lr/2-tr ,ds ,ds+hi-tr]) cube([tr,tr,tr]); // Rastnase 1 Halter
 translate([ds+bi/2+lr/2-tr ,ds ,ds+hi-tr]) rotate ([-90,0,-90]) cylinder(h=tr, d=2*tr); // Rastnase 1 Rundung unten
 translate([ds+bi/2-lr/2+tr/2,ds+li-tr/2,ds+hi ]) sphere(, d=tr); // Rastnase 2 Rundung oben
@@ -243,8 +229,7 @@ kappe=16.4; //Kantenlänge der Kappen
 // translate([i*(ds+bi+ds+druckabstand) ,(1-1)*(ds+li+ds+druckabstand)+kappe+druckabstand,0]) gehaeuse();
 // translate([i*(ds+bi+ds+druckabstand) ,(2-1)*(ds+li+ds+druckabstand)+kappe+druckabstand,0]) gehaeuse();
 // translate([i*(ds+bi+ds+druckabstand) ,(3-1)*(ds+li+ds+druckabstand)+kappe+druckabstand,0]) deckel();
-// translate([i*(ds+bi+ds+druckabstand) ,(3-1)*(ds+li+ds+druckabstand)+(df+bi+df-2*fl)+druckabstand+kappe+druckabstand,
-0]) deckel();
+// translate([i*(ds+bi+ds+druckabstand) ,(3-1)*(ds+li+ds+druckabstand)+(df+bi+df-2*fl)+druckabstand+kappe+druckabstand, 0]) deckel();
 //
 //}
 for (i = [0:anzahlSpalten-1]) {
@@ -256,4 +241,3 @@ translate([i*(ds+bi+ds+druckabstand),2*(ds+li+ds+druckabstand),0]) kappe_eckig()
 gehaeuse();
 translate([ds+hls-asc,0,0]) cube([ds+bi+ds,ds+li+ds,ds+hi+dd]);
 }
--
