@@ -1,5 +1,6 @@
 
 include <config.scad>;
+use <pins.scad>;
 use <esp8266mod.scad>;
 
 
@@ -11,9 +12,9 @@ module d1_mini()
     pcb_z = 1.0;
 
     pins_color = "black";
-    pins_inset = 7.0;
-    pins_y = 20.0;
-    pins_x = 2.0;
+    pins_inset_y = 7.0;
+    pins_y = 8*2.54;
+    pins_x = 2.54;
     pins_z = 7.5;
 
     smd_color = "gray";
@@ -27,21 +28,18 @@ module d1_mini()
     color(pcb_color)
     cube([pcb_x, pcb_y, pcb_z]);
 
-    color(pins_color)
-    {
-        // Pins left
-        translate([0, pins_inset, pcb_z-nothing])
-        cube([pins_x, pins_y, pins_z]);
+    // Pins left
+    translate([0, pins_inset_y, pcb_z-nothing])
+    pinsocket(8, RM=2.54);
 
-        // Pins right
-        translate([pcb_x-pins_x, pins_inset, pcb_z-nothing])
-        cube([pins_x, pins_y, pins_z]);
-    }
+    // Pins right
+    translate([pcb_x-pins_x, pins_inset_y, pcb_z-nothing])
+    pinsocket(8, RM=2.54);
 
     color(smd_color)
     {
         // SMD parts
-        translate([0, pins_inset, nothing-smd_z])
+        translate([0, pins_inset_y, nothing-smd_z])
         cube([pcb_x, pins_y, smd_z]);
 
         // USB port and reset button
