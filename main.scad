@@ -1,8 +1,8 @@
 // Gehäuse für Photometer mit D1 mini
 // U. Scheffler 07.10.2020
 
-$fn = 20;
-nothing = 0.01;
+include <config.scad>;
+use <electronics.scad>;
 
 // Die Bauhöhe des Stapels setzt sich aus dem
 // D1 mini, der Adapterplatine und dem Lichtsensor zusammen.
@@ -479,3 +479,7 @@ module bemassungsprobe()
 
 // all();
 bemassungsprobe();
+
+#translate([li, ds, ds])
+rotate([0, -90, 0])
+electronics();

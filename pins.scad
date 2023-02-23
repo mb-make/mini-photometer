@@ -12,15 +12,16 @@ module pinsocket(count, RM=2.54)
 
 
     // Solder pin
-    color(pin_color)
-    translate([RM/2, RM/2, -pin_z])
-    cylinder(
-            r = pin_radius,
-            h = pin_z + nothing
-        );
+    // color(pin_color)
+    // translate([RM/2, RM/2, -pin_z])
+    // cylinder(
+    //         r = pin_radius,
+    //         h = pin_z + nothing
+    //     );
 
     // Socket
     color(socket_color)
+    translate([-RM/2, 0, 0])
     cube([RM, count*RM, socket_z]);
 }
 

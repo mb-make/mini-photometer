@@ -13,7 +13,7 @@ module adapter()
     corner_x = 2;
     corner_y = 7;
 
-    pins_x = 2.54;
+    RM = 2.54;
     pins_inset_y = 7.0;
 
     difference()
@@ -28,12 +28,12 @@ module adapter()
     }
 
     // Pins left
-    translate([2.54, pins_inset_y+nothing, pcb_z-nothing])
+    translate([RM/2, pins_inset_y+nothing, nothing])
     rotate([0, 180, 0])
     pinsocket(8, RM=2.54);
 
     // Pins right
-    translate([pcb_x-pins_x+2.54, pins_inset_y, pcb_z-nothing])
+    translate([pcb_x-RM/2, pins_inset_y, nothing])
     rotate([0, 180, 0])
     pinsocket(8, RM=2.54);
 }

@@ -7,10 +7,11 @@ use <esp8266mod.scad>;
 module d1_mini()
 {
     pcb_color = "darkblue";
-    pcb_x = 24.0;
+    pcb_x = 26.0;
     pcb_y = 35.0;
     pcb_z = 1.0;
 
+    RM = 2.54;
     pins_color = "black";
     pins_inset_y = 7.0;
     pins_y = 8*2.54;
@@ -22,18 +23,18 @@ module d1_mini()
     placeholder_y = 6.5;
     placeholder_z = 3.0;
 
-    mod_inset_x = 4;
+    mod_inset_x = 5;
     mod_inset_y = 10.5;
 
     color(pcb_color)
     cube([pcb_x, pcb_y, pcb_z]);
 
     // Pins left
-    translate([0, pins_inset_y, pcb_z-nothing])
+    translate([RM/2, pins_inset_y, pcb_z-nothing])
     pinsocket(8, RM=2.54);
 
     // Pins right
-    translate([pcb_x-pins_x, pins_inset_y, pcb_z-nothing])
+    translate([pcb_x-RM/2, pins_inset_y, pcb_z-nothing])
     pinsocket(8, RM=2.54);
 
     color(smd_color)
