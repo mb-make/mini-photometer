@@ -57,6 +57,6 @@ module probedruck()
 // all();
 probedruck();
 
-#translate([li + 1.0, ds, ds])
-rotate([0, -90, 0])
-electronics();
+// translate([li + 1.0, ds, ds])
+// rotate([0, -90, 0])
+// electronics();
