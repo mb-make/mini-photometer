@@ -3,29 +3,35 @@ include <config.scad>;
 use <pins.scad>;
 
 
-module sensor_pcb()
+module sensor_pcb(
+            // PCB outline
+            pcb_color = "darkblue",
+            pcb_size_x = sensor_pcb_size_x,
+            pcb_size_y = sensor_pcb_size_y,
+            pcb_size_z = sensor_pcb_size_z,
+
+            // PCB cutouts
+            ears_inner_d = 2.0,
+            ears_outer_d = 3.0,
+
+            hole_d = 4.5,
+
+            // Sensor IC parameters
+            sensor_color = "lightgray",
+            sensor_size_x = 4,
+            sensor_size_y = 2,
+            sensor_size_z = 1.5,
+            sensor_inset_x = 8.0,
+            sensor_inset_y = 3.0,
+
+            // Pin socket parameters
+            RM = 2.54,
+            pin_count = 4,
+            pins_inset_y = 16.0
+        )
 {
-    pcb_color = "darkblue";
-    pcb_x = 20.0;
-    pcb_y = 20.0;
-    pcb_z = 1.0;
-
-    ears_inner_d = 2.0;
-    ears_outer_d = 3.0;
-
-    hole_d = 4.5;
-
-    sensor_color = "lightgray";
-    sensor_x = 4;
-    sensor_y = 2;
-    sensor_z = 1.5;
-    sensor_inset_x = 8.0;
-    sensor_inset_y = 3.0;
-
-    RM = 2.54;
-    pin_count = 4;
-    pinsocket_y = 16.0;
-    pinsocket_inset_x = pcb_x/2 - pin_count*RM/2;
+    // Pins sentered on X axis
+    pins_inset_x = pcb_size_x/2 - pin_count*RM/2;
 
     difference()
     {
@@ -33,52 +39,76 @@ module sensor_pcb()
         union()
         {
             // Main body
-            cube([pcb_x, pcb_y, pcb_z]);
+            cube([
+                pcb_size_x,
+                pcb_size_y,
+                pcb_size_z
+            ]);
 
             // Ear left
-            translate([0, pcb_y/2, -nothing])
+            translate([
+                0,
+                pcb_size_y/2,
+                -nothing
+            ])
             cylinder(
                     r = ears_outer_d,
-                    h = pcb_z + 2*nothing
+                    h = pcb_size_z + 2*nothing
                 );
 
             // Ear right
-            translate([pcb_x, pcb_y/2, -nothing])
+            translate([pcb_size_x, pcb_size_y/2, -nothing])
             cylinder(
                     r = ears_outer_d,
-                    h = pcb_z + 2*nothing
+                    h = pcb_size_z + 2*nothing
                 );
         }
 
         // Bottom edge hole
-        translate([pcb_x/2, 0, -nothing])
+        translate([
+            pcb_size_x/2,
+            0,
+            -nothing
+        ])
         cylinder(
-                r = hole_d/2,
-                h = pcb_z + 2*nothing
-            );
+            r = hole_d/2,
+            h = pcb_size_z + 2*nothing
+        );
 
         // Top edge hole
-        translate([pcb_x/2, pcb_y, -nothing])
+        translate([
+            pcb_size_x/2,
+            pcb_size_y,
+            -nothing
+        ])
         cylinder(
-                r = hole_d/2,
-                h = pcb_z + 2*nothing
-            );
+            r = hole_d/2,
+            h = pcb_size_z + 2*nothing
+        );
 
         union()
         {
             // Ear hole left
-            translate([0, pcb_y/2, -2*nothing])
+            translate([
+                0,
+                pcb_size_y/2,
+                -2*nothing
+            ])
             cylinder(
-                    r = ears_inner_d,
-                    h = pcb_z + 4*nothing
-                );
+                r = ears_inner_d,
+                h = pcb_size_z + 4*nothing
+            );
 
             // Ear hole right
-            translate([pcb_x, pcb_y/2, -2*nothing])
+            translate([
+                pcb_size_x,
+                pcb_size_y/2,
+                -2*nothing
+            ])
             cylinder(
-                    r = ears_inner_d,
-                    h = pcb_z + 4*nothing
-                );
+                r = ears_inner_d,
+                h = pcb_size_z + 4*nothing
+            );
         }
     }
 
@@ -87,12 +117,20 @@ module sensor_pcb()
     translate([
         sensor_inset_x,
         sensor_inset_y,
-        pcb_z-nothing
+        pcb_size_z-nothing
     ])
-    cube([sensor_x, sensor_y, sensor_z+nothing]);
+    cube([
+        sensor_size_x,
+        sensor_size_y,
+        sensor_size_z+nothing
+    ]);
 
     // Pin socket
-    translate([pinsocket_inset_x, pinsocket_y, 0])
+    translate([
+        pins_inset_x,
+        pins_inset_y,
+        pcb_size_z+nothing
+    ])
     rotate([0, 0, -90])
     pinsocket(count=pin_count, RM=RM);
 };
