@@ -2,18 +2,23 @@
 SCAD=$(wildcard *.scad)
 STL=$(SCAD:.scad=.stl)
 GCODE=$(STL:.stl=.gcode)
+ZIP=$(STL:.stl=.stl.zip)
 
 MAIN_STL=main.stl
+MAIN=main.zip
 
 
 .PHONY: all clean
 .SECONDARY:
 
-all: main.gcode
+all: $(MAIN)
 
 # Generate STL from OpenSCAD model
 %.stl: %.scad
 	openscad $< -o $@
+
+%.zip: %.stl
+	zip -9 $@ $<
 
 # Open model in Slic3r GUI
 slic3r: $(MAIN_STL)
@@ -27,5 +32,4 @@ slic3r: $(MAIN_STL)
 	sed -E -e "s/M190 /M140 /" -i $@
 
 clean:
-	@rm -fv $(GCODE) $(STL)
-
+	@rm -fv $(GCODE) $(STL) $(ZIP)

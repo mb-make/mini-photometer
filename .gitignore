@@ -1,4 +1,7 @@
 
+# Temporary
+*.tmp
+
 # Generated
 *.jpg
 *.jpeg
@@ -6,5 +9,4 @@
 *.stl
 *.g
 *.gcode
-
-
+*.zip
