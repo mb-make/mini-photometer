@@ -3,29 +3,43 @@ include <config.scad>;
 use <pins.scad>;
 
 
-module led_socket()
+/**
+ * Socket for a three-color LED (4 terminals)
+ * including the LED, angled 90 degrees
+ */
+module led_socket(
+            // Pins
+            pin_color = "silver",
+            pin_spacing = led_socket_pin_spacing,
+            pin_count = led_socket_pin_count,
+
+            // LED
+            led_color = "red",
+            led_d = led_diameter,
+            led_h = 11.0,
+            led_z = 15.0
+        )
 {
-    RM = 2.54;
+    led_x = pin_count/2 * pin_spacing;
 
-    led_color = "red";
-    led_r = 5;
-    led_h = 11;
-    led_x = 2.0 * RM;
-    led_z = 15.0;
-
+    // Pin socket
+    translate([0, pin_spacing/2, 0])
     rotate([0, 0, -90])
-    pinsocket(count=4, RM=2.54);
+    pins(count=pin_count, spacing=pin_spacing);
 
-    translate([RM/2, -RM/2+nothing, 0])
-    cube([3*RM, RM/2+nothing, led_z]);
+    // LED pins
+    color(pin_color)
+    translate([pin_spacing/2, pin_spacing/4 + nothing, nothing])
+    cube([3*pin_spacing, pin_spacing/2, led_z]);
 
+    // LED body
     color(led_color)
-    translate([led_x, 0, led_z])
+    translate([led_x, pin_spacing/2, led_z])
     rotate([-90, 0, 0])
     cylinder(
-            r = led_r,
-            h = led_h
-        );
+        r = led_d/2,
+        h = led_h
+    );
 }
 
 led_socket();

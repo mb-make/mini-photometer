@@ -25,13 +25,13 @@ module sensor_pcb(
             sensor_inset_y = 3.0,
 
             // Pin socket parameters
-            RM = 2.54,
+            pin_spacing = 2.54,
             pin_count = 4,
             pins_inset_y = 16.0
         )
 {
     // Pins sentered on X axis
-    pins_inset_x = pcb_size_x/2 - pin_count*RM/2;
+    pins_inset_x = pcb_size_x/2 - pin_count*pin_spacing/2;
 
     difference()
     {
@@ -132,7 +132,7 @@ module sensor_pcb(
         pcb_size_z+nothing
     ])
     rotate([0, 0, -90])
-    pinsocket(count=pin_count, RM=RM);
+    socket(count=pin_count, spacing=pin_spacing);
 };
 
 sensor_pcb();

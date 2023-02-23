@@ -11,7 +11,7 @@ module adapter(
             pcb_z = adapter_pcb_size_z,
 
             // Pin sockets left and right
-            RM = 2.54,
+            pin_spacing = 2.54,
             pins_inset_y = 7.0,
             pin_count = 8,
 
@@ -41,21 +41,21 @@ module adapter(
 
     // Pins left
     translate([
-        RM/2,
+        pin_spacing/2,
         pins_inset_y + nothing,
         nothing
     ])
     rotate([0, 180, 0])
-    pinsocket(pin_count, RM=RM);
+    pins(pin_count, spacing=pin_spacing);
 
     // Pins right
     translate([
-        pcb_x - RM/2,
+        pcb_x - pin_spacing/2,
         pins_inset_y,
         nothing
     ])
     rotate([0, 180, 0])
-    pinsocket(pin_count, RM=RM);
+    socket(pin_count, spacing=pin_spacing);
 }
 
 adapter();
