@@ -1,5 +1,5 @@
 
-include <config.scad>;
+include <../electronics/config.scad>;
 use <pins.scad>;
 use <esp8266mod.scad>;
 

@@ -1,6 +1,6 @@
 
 include <config.scad>;
-use <pins.scad>;
+use <../lib/pins.scad>;
 
 
 /**

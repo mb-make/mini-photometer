@@ -1,6 +1,6 @@
 
 include <config.scad>;
-use <roundcube.scad>;
+use <../lib/roundcube.scad>;
 use <cuvette-holder.scad>;
 
 

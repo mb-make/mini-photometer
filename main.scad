@@ -1,9 +1,9 @@
 // Gehäuse für Photometer mit D1 mini
 // U. Scheffler 07.10.2020
 
-include <config.scad>;
+include <casing/config.scad>;
 use <electronics/electronics.scad>;
-use <casing.scad>;
+use <casing/casing.scad>;
 
 
 module all()

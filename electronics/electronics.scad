@@ -1,9 +1,9 @@
 
 include <config.scad>;
-use <d1-mini.scad>;
+use <../lib/d1-mini.scad>;
+use <../lib/sensor.scad>;
 use <adapter.scad>;
 use <led.scad>;
-use <sensor.scad>;
 
 
 /**
