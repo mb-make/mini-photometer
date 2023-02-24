@@ -1,4 +1,7 @@
 
+# IDE
+.vscode
+
 # Temporary
 *.tmp
 
