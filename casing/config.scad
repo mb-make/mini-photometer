@@ -22,8 +22,8 @@ cuvette_margin_z = 0.1;
  */
 box_wall_thickness = 2.0;
 
-box_inner_size_x = 39.5;
-box_inner_size_y = 37.5;
+box_inner_size_x = 38.5;
+box_inner_size_y = 35.5;
 box_inner_size_z = 26.0;
 
 box_size_x = box_inner_size_x + 2*box_wall_thickness;
@@ -52,12 +52,12 @@ lid_slider_size_z = 1.0;
 cuvette_holder_wall_thickness = 1.0;
 
 // Distance between inner box wall and holder
-cuvette_holder_inset_y = 13.0;
+cuvette_holder_inset_y = 5.0;
 
 // Distance between inner box wall (bottom) and center of circular openings (on the Y axis)
-lightpath_offset_z = 15.0;
+lightpath_offset_z = 13.5;
 
-lightpath_hole_diameter = 5.0;
+lightpath_hole_diameter = 6.0;
 lightpath_size_x = 5.0;
 lightpath_size_y = 10.0;
 

@@ -1,5 +1,6 @@
 
 include <config.scad>;
+include <../electronics/config.scad>;
 use <../lib/sliderbox.scad>;
 use <cuvette-holder.scad>;
 use <text.scad>;
