@@ -7,7 +7,7 @@ use <../lib/pins.scad>;
  * Socket for a three-color LED (4 terminals)
  * including the LED, angled 90 degrees
  */
-module led_socket(
+module light_source(
             // Pins
             pin_color = "silver",
             pin_spacing = led_socket_pin_spacing,
@@ -42,4 +42,4 @@ module led_socket(
     );
 }
 
-led_socket();
+light_source();

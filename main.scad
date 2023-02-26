@@ -2,7 +2,7 @@
 // U. Scheffler 07.10.2020
 
 include <casing/config.scad>;
-use <electronics/electronics.scad>;
+use <electronics/assembled.scad>;
 use <casing/casing.scad>;
 
 

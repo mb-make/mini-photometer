@@ -2,8 +2,8 @@
 include <config.scad>;
 use <../lib/d1-mini.scad>;
 use <../lib/sensor.scad>;
-use <adapter.scad>;
-use <led.scad>;
+use <adapter-pcb.scad>;
+use <light-source.scad>;
 
 
 /**
@@ -48,7 +48,7 @@ module electronics(
                 // Properly rotated LED socket with LED
                 translate([led_socket_size_x, 0, 0])
                 rotate([0, 0, 180])
-                led_socket();
+                light_source();
             }
         }
     }
