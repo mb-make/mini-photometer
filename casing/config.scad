@@ -37,6 +37,15 @@ lid_inset_slider = box_wall_thickness / 2;
 lid_inset_holder = 2.5;
 lid_slider_size_z = 1.0;
 
+/**
+ * Cuvette holder parameters
+ */
+// Distance between inner box wall and holder
+cuvette_holder_inset_y = 13.0;
+// Distance between inner box wall (bottom) and center of circular openings (on the Y axis)
+lightpath_offset_z = 15.0;
+lightpath_hole_diameter = 5.0;
+
 
 // Die Bauhöhe des Stapels setzt sich aus dem
 // D1 mini, der Adapterplatine und dem Lichtsensor zusammen.

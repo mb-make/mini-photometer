@@ -2,81 +2,48 @@
 include <config.scad>;
 
 
-module cuvette_holder()
+/**
+ * A structure to hold a cuvette,
+ * with holes to allow for light to pass through from source to sensor
+ */
+module cuvette_holder(
+          wall_thickness = 1.2,
+          size_x = cuvette_size_x + 2*cuvette_margin_x,
+          size_y = cuvette_size_y + 2*cuvette_margin_y,
+          size_z = box_inner_size_z,
+          lightsource_offset_z = lightpath_offset_z,
+          lightsource_hole_diameter = lightpath_hole_diameter,
+          sensor_offset_z = lightpath_offset_z,
+          sensor_hole_diameter = lightpath_hole_diameter
+        )
 {
-	translate([ 1.7, 0 , 0 ])
-	difference()
-	{ // Küvettenführung und LED Halter
-		union()
-		{
-			if (kmode == 0)
-				translate([ ds - wi + (hls - asc - kk / 2) - zs * wi, ds + bs - 1.0, ds + nothing ])
-				cube([ kk + 2 * wi + zs * wi, kk + 2 * wi + 1.0, hi - 2*nothing ]); // eckige Küvettenführung
-			if (kmode == 1)
-				translate([ ds + (hls - asc), ds + bs + wi + kk / 2, ds ])
-				cylinder(d = kk + 2 * wi, h = hi); // runde Küvettenführung
+  difference()
+  {
+    // A complete cube
+    cube([size_x, size_y, size_z]);
 
-			translate([ ds - wi + kk / 2 - bl / 2 + (hls - asc - kk / 2), ds + bs + 0 * wi + kk, ds ])
-			cube([ wi + bl + wi, ll + wi, hi - nothing ]); // LED Halter Block
+    // Cut away the inside
+    translate([wall_thickness, wall_thickness, -nothing])
+    cube([size_x-2*wall_thickness, size_y-2*wall_thickness, size_z+2*nothing]);
 
-			if (kmode == 0)
-				translate([ ds + hls - asc - kk / 2 - wi, ds + bs + wi + kk, 0 ])
-				cube([ wi + (kk - bl) / 2, 4 * wi, ds + hi ]); // Küvetten Haltefeder Aussparung links
-			if (kmode == 0)
-				translate([ ds + hls - asc + bl / 2, ds + bs + wi + kk, 0 ])
-				cube([ wi + (kk - bl) / 2, 4 * wi, ds + hi ]); // Küvetten Haltefeder Aussparung rechts
-		}
+    // A hole for the sensor on the front
+    translate([size_x/2, -nothing, sensor_offset_z])
+    rotate([-90, 0, 0])
+    cylinder(
+      d = sensor_hole_diameter,
+      h = wall_thickness + 2*nothing
+    );
 
-		if (kmode == 0)
-			translate([ ds + (hls - asc - kk / 2), ds + bs + wi + nothing, ds ])
-	    	cube([ kk, kk, hi ]); // eckige Küvettenführung Bodendurchbruch
-		if (kmode == 1)
-			translate([ ds + (hls - asc), ds + bs + wi + kk / 2, ds ])
-    		cylinder(d = kk, h = hi); // runde Küvettenführung Bodendurchbruch
-
-		translate([ ds - wi + kk / 2 - bl / 2 + wi + (hls - asc - kk / 2), ds + bs + 2 * wi + kk, ds + hi / 2 ])
-		cube([ bl, ll + 2 * wi, hi / 2 ]); // LED Halter Aussparung
-
-		translate([ ds - wi + kk / 2 + wi + (hls - asc - kk / 2), ds + bs + (-2) * wi + kk + 4 * wi, ds + hi / 2 ])
-		rotate([ -90, 0, 0 ])
-		cylinder(h = ll + 3 * wi, d = bl); // LED Aussparung
-
-		translate([ ds - wi + kk / 2 + wi + (hls - asc - kk / 2), ds + bs + (-2) * wi + kk + 0 * wi, ds + hi / 2 ])
-		rotate([ -90, 0, 0 ])
-		cylinder(h = ll + 3 * wi,
-		         d = lla+1.5); // LED Lichtweg Austrittsöffnung
-
-		hull()
-		{
-			translate([ ds - wi + kk / 2 + wi + (hls - asc - kk / 2), ds + bs, ds + hsmp + dc / 2 ])
-			rotate([ -90, 0, 0 ])
-			cylinder(h = 2 * wi, d = dc); // Sensor Lichtweg
-
-			translate([ ds - wi + kk / 2 + wi + (hls - asc - kk / 2), ds + bs - 1.5, ds + hsmp - dc / 2 ])
-			rotate([ -90, 0, 0 ])
-			cylinder(h = 2 * wi, d = dc); // Sensor Lichtweg
-		}
-
-		if (zs > 0.0)
-		{
-			hull()
-			{
-				translate([ ds + (hls - asc) - kk / 2 - 2 * wi, ds + bs + wi + kk / 2 - dc / 2, ds + hsmp + dc / 2 ])
-				rotate([ 0, 90, 0 ])
-				cylinder(h = 3 * wi, d = dc); // Zweiter Sensor Lichtweg
-				translate([ ds + (hls - asc) - kk / 2 - 2 * wi, ds + bs + wi + kk / 2 + dc / 2, ds + hsmp - dc / 2 ])
-				rotate([ 0, 90, 0 ])
-				cylinder(h = 3 * wi, d = dc); // Zweiter Sensor Lichtweg
-			};
-			if (kmode == 0)
-				translate([ ds - wi + (hls - asc - kk / 2) - zs * wi / 4, ds + bs + wi, 0 ])
-			cube([ wi / 2, kk, hi + 2 * ds ]); // Filteraussparung bei eckiger Küvettenführung
-		};
-		if (kmode == 0)
-			translate([ ds + hls - asc - kk / 2, ds + bs + wi + kk, 0 ])
-		cube([ (kk - bl) / 2 - wi, 3 * wi, ds + hi + dd ]); // Küvetten Haltefeder Aussparung links
-		if (kmode == 0)
-			translate([ ds + hls - asc + bl / 2 + wi, ds + bs + wi + kk, 0 ])
-		cube([ (kk - bl) / 2 - wi, 3 * wi, ds + hi + dd ]); // Küvetten Haltefeder Aussparung rechts
-	}
+    // A hole for the light source on the back
+    translate([size_x/2, size_y-wall_thickness-nothing, lightsource_offset_z])
+    rotate([-90, 0, 0])
+    cylinder(
+      d = lightsource_hole_diameter,
+      h = wall_thickness + 2*nothing
+    );
+  }
 }
+
+
+// Preview
+cuvette_holder();
