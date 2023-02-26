@@ -4,6 +4,31 @@ $fn = 20;
 nothing = 0.01;
 
 
+/*
+ * Cuvette parameters (cubic)
+ */
+cuvette_size_x = 10;
+cuvette_size_y = 10;
+cuvette_size_z = 45;
+
+// Additional space to leave empty between cuvette and 3d-printed surfaces
+cuvette_margin_x = 0.1;
+cuvette_margin_y = 0.1;
+cuvette_margin_z = 0.1;
+
+/*
+ * Box parameters
+ */
+box_wall_thickness = 2;
+box_inner_size_x = 26;
+box_inner_size_y = 26;
+box_inner_size_z = 26;
+
+box_outer_size_x = box_inner_size_x + box_wall_thickness;
+box_outer_size_y = box_inner_size_y + box_wall_thickness;
+box_outer_size_z = box_inner_size_z + box_wall_thickness;
+
+
 // Die Bauhöhe des Stapels setzt sich aus dem
 // D1 mini, der Adapterplatine und dem Lichtsensor zusammen.
 // Unter dem D1 Mini sollte etwas Luft bleiben
