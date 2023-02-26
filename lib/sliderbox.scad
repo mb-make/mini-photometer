@@ -4,23 +4,66 @@ use <cuboid.scad>;
 
 
 /**
- * The lid to place on the bottom of the box
+ * A box with rounded corners and a hole for a slidable lid
  */
-module lid(
+module sliderbox(
+          size_x = box_size_x,
+          size_y = box_size_y,
+          size_z = box_size_z,
+          wall_thickness = box_wall_thickness,
+          curvature_radius = box_curvature_radius,
+          slider_inset_x = lid_inset_slider,
+          slider_size_z = lid_slider_size_z,
+          holder_inset_x = lid_inset_holder
+        )
+{
+  holder_size_z = wall_thickness - slider_size_z;
+
+  difference()
+  {
+    // A complete cuboid
+    cuboid(
+      size_x = size_x,
+      size_y = size_y,
+      size_z = size_z,
+      curvature_radius = curvature_radius
+    );
+
+    // Cut away the free space inside
+    translate([wall_thickness, wall_thickness, wall_thickness])
+    cube([size_x-2*wall_thickness, size_y-2*wall_thickness, size_z-2*wall_thickness]);
+
+    // Holder left
+    translate([holder_inset_x, -nothing, size_z-holder_size_z-nothing])
+    cube([size_x-2*holder_inset_x, size_y+2*nothing, holder_size_z+2*nothing]);
+
+    // Slider left
+    translate([slider_inset_x, -nothing, size_z-holder_size_z-slider_size_z-nothing])
+    cube([size_x-2*slider_inset_x, size_y+2*nothing, slider_size_z+nothing]);
+  }
+}
+
+
+/**
+ * A lid with rounded corners to slide on the box
+ */
+module sliderbox_lid(
           size_x = box_size_x,
           size_y = box_size_y,
           thickness = box_wall_thickness,
           curvature_radius = box_curvature_radius,
-          slider_size_z = lid_slider_size_z
+          slider_inset_x = lid_inset_slider,
+          slider_size_z = lid_slider_size_z,
+          holder_inset_x = lid_inset_holder
         )
 {
-  size_z = box_size_z;
+  size_z = 10.0;
   holder_size_z = thickness - slider_size_z;
 
 	// Cut away the bottom part of the box
 	difference()
 	{
-		// A complete box
+		// A complete cuboid
   	translate([0, 0, -size_z+thickness])
 		cuboid(
 			size_x = size_x,
@@ -40,7 +83,7 @@ module lid(
     // Slider inset left
     translate([-nothing, -nothing, -nothing])
     cube([
-      lid_inset_slider + nothing,
+      slider_inset_x + nothing,
       size_y + 2*nothing,
       thickness + 2*nothing
     ]);
@@ -48,27 +91,32 @@ module lid(
     // Holder inset left
     translate([-nothing, -nothing, slider_size_z])
     cube([
-      lid_inset_holder + nothing,
+      holder_inset_x + nothing,
       size_y + 2*nothing,
       holder_size_z + nothing
     ]);
 
     // Slider inset right
-    translate([size_x-lid_inset_slider, -nothing, -nothing])
+    translate([size_x-slider_inset_x, -nothing, -nothing])
     cube([
-      lid_inset_slider + nothing,
+      slider_inset_x + nothing,
       size_y + 2*nothing,
       thickness + 2*nothing
     ]);
 
     // Holder inset right
-    translate([size_x-lid_inset_holder, -nothing, slider_size_z])
+    translate([size_x-holder_inset_x, -nothing, slider_size_z])
     cube([
-      lid_inset_holder + nothing,
+      holder_inset_x + nothing,
       size_y + 2*nothing,
       holder_size_z + nothing
     ]);
 	}
 }
 
-lid();
+
+// Demo
+sliderbox();
+
+translate([box_size_x*1.1, 0, 0])
+sliderbox_lid();
