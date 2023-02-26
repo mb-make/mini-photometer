@@ -28,7 +28,15 @@ module box()
     // TODO
 
     // Inscription
-    // TODO
+    translate([
+      box_size_x/2,
+      box_size_y - box_inscription_depth,
+      box_size_z/2
+    ])
+    rotate([90, 0, 180])
+    inscription(
+      size_z = box_inscription_depth + nothing
+    );
 	}
 
   // Add cuvette holder

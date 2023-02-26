@@ -32,6 +32,13 @@ box_size_z = box_inner_size_z + 2*box_wall_thickness;
 
 box_curvature_radius = 2.0;
 
+// Additional space to leave between the electronics and the box's inner surfaces
+box_margin_x = 0.5;
+box_margin_y = 0.5;
+box_margin_z = 0.5;
+
+box_inscription_depth = 1.0;
+
 /*
  * Lid parameters
  */
