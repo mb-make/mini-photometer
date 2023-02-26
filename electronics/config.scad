@@ -8,8 +8,14 @@ nothing = 0.001;
 /*
  * Globally relevant model parameters
  */
-d1mini_pcb_size_x = 26;
-d1mini_pcb_size_y = 35;
+d1mini_pcb_size_x = 25.6;
+d1mini_pcb_size_y = 34.2;
+
+// Mini-USB
+d1mini_usb_inset_x = 12.9;
+usb_size_x = 8.0;
+usb_size_y = 7.61;
+usb_size_z = 2.9;
 
 adapter_pcb_size_x = 26;
 adapter_pcb_size_y = 29;

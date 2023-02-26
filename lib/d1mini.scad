@@ -19,13 +19,15 @@ module d1mini(
             pin_spacing = 2.54,
             pin_count = 8,
             pins_size_z = 7.5,
-            pins_inset_y = 7.0,
+            pins_inset_y = 6.8,
 
             // Placeholders for SMD components
             smd_color = "gray",
             smd_size_z = 2.5,
-            placeholder_size_y = 6.5,
-            placeholder_size_z = 3.0,
+            usb_size_x = usb_size_x,
+            usb_size_y = usb_size_y,
+            usb_size_z = usb_size_z,
+            usb_inset_x = d1mini_usb_inset_x,
 
             // MCU module
             mod_inset_x = 5.0,
@@ -66,13 +68,21 @@ module d1mini(
             smd_size_z
         ]);
 
-        // USB port and reset button
-        translate([0, 0, -placeholder_size_z + nothing])
+        // USB port
+        translate([usb_inset_x-usb_size_x/2, 0, -usb_size_z + nothing])
         cube([
-            pcb_size_x,
-            placeholder_size_y,
-            placeholder_size_z
+            usb_size_x,
+            usb_size_y,
+            usb_size_z
         ]);
+
+        // Reset button
+        // translate([0, 0, -placeholder_size_z + nothing])
+        // cube([
+        //     pcb_size_x,
+        //     placeholder_size_y,
+        //     placeholder_size_z
+        // ]);
     }
 
     // MCU board
