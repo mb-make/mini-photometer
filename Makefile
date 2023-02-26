@@ -4,19 +4,21 @@ STL=$(SCAD:.scad=.stl)
 GCODE=$(STL:.stl=.gcode)
 ZIP=$(STL:.stl=.stl.zip)
 
-MAIN_STL=main.stl
-MAIN=main.zip
+MAIN_STL=print.stl
+MAIN=print.zip
 
 
 .PHONY: all clean
 .SECONDARY:
 
-all: $(MAIN)
+all: zip
 
 # Generate STL from OpenSCAD model
+stl: $(MAIN_STL)
 %.stl: %.scad
 	openscad $< -o $@
 
+zip: $(MAIN)
 %.zip: %.stl
 	zip -9 $@ $<
 
