@@ -19,14 +19,16 @@ cuvette_margin_z = 0.1;
 /*
  * Box parameters
  */
-box_wall_thickness = 2;
-box_inner_size_x = 26;
-box_inner_size_y = 26;
+box_wall_thickness = 1.7;
+box_inner_size_x = 39.5;
+box_inner_size_y = 37.5;
 box_inner_size_z = 26;
 
-box_outer_size_x = box_inner_size_x + box_wall_thickness;
-box_outer_size_y = box_inner_size_y + box_wall_thickness;
-box_outer_size_z = box_inner_size_z + box_wall_thickness;
+box_size_x = box_inner_size_x + box_wall_thickness;
+box_size_y = box_inner_size_y + box_wall_thickness;
+box_size_z = box_inner_size_z + box_wall_thickness;
+
+box_curvature_radius = 2;
 
 
 // Die Bauhöhe des Stapels setzt sich aus dem
