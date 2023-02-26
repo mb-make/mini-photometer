@@ -7,11 +7,11 @@ use <esp8266mod.scad>;
 /**
  * D1-mini breakout board with Espressif ESP8266 Wifi MCU module
  */
-module d1_mini(
+module d1mini(
             // PCB outline
             pcb_color = "darkblue",
-            pcb_size_x = 26.0,
-            pcb_size_y = 35.0,
+            pcb_size_x = d1mini_pcb_size_x,
+            pcb_size_y = d1mini_pcb_size_y,
             pcb_size_z = 1.0,
 
             // Pins
@@ -80,4 +80,6 @@ module d1_mini(
     esp8266mod();
 }
 
-d1_mini();
+
+// Preview
+d1mini();

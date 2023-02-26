@@ -8,6 +8,9 @@ nothing = 0.01;
 /*
  * Globally relevant model parameters
  */
+d1mini_pcb_size_x = 26;
+d1mini_pcb_size_y = 35;
+
 adapter_pcb_size_x = 26;
 adapter_pcb_size_y = 29;
 adapter_pcb_size_z = 1.0;

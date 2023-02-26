@@ -1,6 +1,6 @@
 
 include <config.scad>;
-use <../lib/d1-mini.scad>;
+use <../lib/d1mini.scad>;
 use <../lib/sensor.scad>;
 use <adapter-pcb.scad>;
 use <light-source.scad>;
@@ -19,7 +19,7 @@ module electronics(
         )
 {
     // MCU board
-    d1_mini();
+    d1mini();
 
     translate([0, 0, adapter_pcb_offset_z])
     {
