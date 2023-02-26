@@ -1,52 +1,74 @@
 
 include <config.scad>;
+use <../lib/roundcube.scad>;
 
 
-module lid()
+/**
+ * The lid to place on the bottom of the box
+ */
+module lid(
+          size_x = box_size_x,
+          size_y = box_size_y,
+          thickness = box_wall_thickness,
+          curvature_radius = box_curvature_radius,
+          slider_size_z = lid_slider_size_z
+        )
 {
-	rotate([ 0, 0, 90 ])
-	translate([ 0, -(2 * ds + li), 0 ])
+  size_z = box_size_z;
+  holder_size_z = thickness - slider_size_z;
+
+	// Cut away the bottom part of the box
+	difference()
 	{
-		difference()
-		{
-			union()
-			{
-				translate([ ds + fl, 0, 0 ])
-				cube([ bi - 2 * fl, ds + li + ds, dd - kr ]); // Deckel
-				difference()
-				{ // mit Abrundung an Kante
-					hull()
-					{
-						translate([ ds + fl, 0 + kr, dd - kr ])
-						rotate([ 0, 90, 0 ])
-						cylinder(h = bi - 2 * fl, r = kr);
-						translate([ ds + fl, ds + li + ds - kr, dd - kr ])
-						rotate([ 0, 90, 0 ])
-						cylinder(h = bi - 2 * fl, r = kr);
-					}
-					translate([ ds - df + fl - 20, 0 - 20, -20 ])
-					cube([ df + bi + df - 2 * fl + 40, ds + li + ds + 40, dd / 2 - 2 * fl + 20 ]);
-				}
-				translate([ ds - df + fl, 0, 0 ])
-				cube([ df + bi + df - 2 * fl, ds + li + ds, dd / 2 - 2 * fl ]);
-			} // Deckelführung
+		// A complete box
+  	translate([0, 0, -size_z+thickness])
+		roundcube(
+			size_x = size_x,
+			size_y = size_y,
+			size_z = size_z,
+			radius = curvature_radius
+		);
 
-			translate([ ds + bi / 2 - lr / 2 - fl, ds, 0 ])
-			cube([ lr + 2 * fl, tr, tr ]); // Aussparung Rastnase
+		// Bottom part of the box
+    translate([-nothing, -nothing, -size_z-nothing])
+		cube([
+			size_x + 2*nothing,
+			size_y + 2*nothing,
+			size_z + nothing
+		]);
 
-			translate([ ds + bi / 2 - lr / 2 - fl, ds + li - tr, 0 ])
-			cube([ lr + 2 * fl, tr, tr ]); // Aussparung Rastnase
+    // Slider inset left
+    translate([-nothing, -nothing, -nothing])
+    cube([
+      lid_inset_slider + nothing,
+      size_y + 2*nothing,
+      thickness + 2*nothing
+    ]);
 
-			translate([ ds + bi / 2 - 10, 4.5 + 5, dd - tb ])
-			rotate([ 0, 0, -45 ])
-			{ // Beschriftung Text
-				linear_extrude(height = tb)
-				{
-					translate([ 0, 15, 0 ])
-					text("192.168.4.1", font = "Liberation Sans:style=Bold", size = 6, valign = "center",
-					     halign = "center");
-				}
-			}
-		}
+    // Holder inset left
+    translate([-nothing, -nothing, slider_size_z])
+    cube([
+      lid_inset_holder + nothing,
+      size_y + 2*nothing,
+      holder_size_z + nothing
+    ]);
+
+    // Slider inset right
+    translate([size_x-lid_inset_slider, -nothing, -nothing])
+    cube([
+      lid_inset_slider + nothing,
+      size_y + 2*nothing,
+      thickness + 2*nothing
+    ]);
+
+    // Holder inset right
+    translate([size_x-lid_inset_holder, -nothing, slider_size_z])
+    cube([
+      lid_inset_holder + nothing,
+      size_y + 2*nothing,
+      holder_size_z + nothing
+    ]);
 	}
 }
+
+lid();

@@ -30,6 +30,13 @@ box_size_z = box_inner_size_z + box_wall_thickness;
 
 box_curvature_radius = 2;
 
+/*
+ * Lid parameters
+ */
+lid_inset_slider = box_wall_thickness / 2;
+lid_inset_holder = 2.5;
+lid_slider_size_z = 1.0;
+
 
 // Die Bauhöhe des Stapels setzt sich aus dem
 // D1 mini, der Adapterplatine und dem Lichtsensor zusammen.
