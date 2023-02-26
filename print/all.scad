@@ -1,7 +1,7 @@
 
-include <casing/config.scad>;
-use <casing/box.scad>;
-use <casing/cuvette-cap.scad>;
+include <../casing/config.scad>;
+use <../casing/box.scad>;
+use <../casing/cuvette-cap.scad>;
 
 
 /**

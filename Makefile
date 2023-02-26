@@ -1,11 +1,8 @@
 
-SCAD=$(wildcard *.scad)
+SCAD=$(wildcard print/*.scad)
 STL=$(SCAD:.scad=.stl)
 GCODE=$(STL:.stl=.gcode)
 ZIP=$(STL:.stl=.stl.zip)
-
-MAIN_STL=print.stl
-MAIN=print.zip
 
 
 .PHONY: all clean
@@ -13,12 +10,14 @@ MAIN=print.zip
 
 all: zip
 
+zip: $(STL)
+	@rm -fv print.zip
+	zip -9 print.zip $^
+
 # Generate STL from OpenSCAD model
-stl: $(MAIN_STL)
 %.stl: %.scad
 	openscad $< -o $@
 
-zip: $(MAIN)
 %.zip: %.stl
 	zip -9 $@ $<
 

@@ -57,6 +57,6 @@ module preview(
 // Show simplified photometer model
 preview(
   show_electronics = true,
-  cut_from_top = true,
-  cut_from_bottom = true
+  cut_from_top = false,
+  cut_from_bottom = false
 );
