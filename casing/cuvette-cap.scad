@@ -7,29 +7,35 @@ include <config.scad>;
  * with a small hole on top to be able to check the light source
  */
 module cuvette_cap(
-        wall_thickness = 1.2,
-        size_x = cuvette_size_x + 2*cuvette_margin_x,
-        size_y = cuvette_size_y + 2*cuvette_margin_y,
-        size_z = cuvette_size_z - box_inner_size_z - box_wall_thickness + cuvette_margin_z,
-        hole_diameter = 1.5
+        wall_thickness = cuvette_holder_wall_thickness,
+        cuvette_size_x = cuvette_size_x + 2*cuvette_margin_x,
+        cuvette_size_y = cuvette_size_y + 2*cuvette_margin_y,
+        size_z = cuvette_size_z - box_inner_size_z - box_wall_thickness + cuvette_holder_wall_thickness + cuvette_margin_z,
+        hole_diameter = cap_hole_diameter
       )
 {
-	inner_size_x = size_x - 2*wall_thickness;
-	inner_size_y = size_y - 2*wall_thickness;
-	inner_size_z = size_z - wall_thickness;
+  // Calculate outer cap dimension
+	size_x = cuvette_size_x + 2*wall_thickness;
+	size_y = cuvette_size_y + 2*wall_thickness;
 
 	difference()
 	{
+    // A complete cuboid
 		cube([size_x, size_y, size_z]);
 
+    // Carve out space for the cuvette
 		translate([wall_thickness, wall_thickness, wall_thickness])
-		cube([inner_size_x, inner_size_y, inner_size_z+nothing]);
+		cube([cuvette_size_x, cuvette_size_y, size_z]);
 
-		translate([size_x/2, size_y/2, -nothing])
-		cylinder(
-				d = hole_diameter,
-				h = wall_thickness + 2*nothing
-			);
+    // Punch a hole in the bottom
+    if (hole_diameter > 0.0)
+    {
+      translate([size_x/2, size_y/2, -nothing])
+      cylinder(
+          d = hole_diameter,
+          h = wall_thickness + 2*nothing
+        );
+    }
 	}
 }
 

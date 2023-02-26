@@ -1,8 +1,7 @@
 
 include <casing/config.scad>;
 use <casing/box.scad>;
-use <casing/lid.scad>;
-use <casing/cap.scad>;
+use <casing/cuvette-cap.scad>;
 
 
 /**
@@ -10,12 +9,12 @@ use <casing/cap.scad>;
  */
 module print()
 {
-  casing();
+  translate([0, cuvette_size_y*1.5, 0])
+  box();
 
-  translate([0, 1 * (ds + li + ds + druckabstand), 0 ])
+  translate([box_size_x*1.1, 0, 0])
   lid();
 
-  translate([0, 2 * (ds + li + ds + druckabstand), 0 ])
   cuvette_cap();
 }
 

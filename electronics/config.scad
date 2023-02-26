@@ -3,7 +3,7 @@
 $fn = 80;
 
 // Quickfix for rendering artifacts on overlapping surfaces
-nothing = 0.01;
+nothing = 0.001;
 
 /*
  * Globally relevant model parameters

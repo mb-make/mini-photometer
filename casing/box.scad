@@ -32,7 +32,21 @@ module box()
 	}
 
   // Add cuvette holder
-  cuvette_holder();
+  translate([
+    box_wall_thickness - nothing,
+    box_wall_thickness + cuvette_holder_inset_y,
+    box_wall_thickness - nothing
+  ])
+  cuvette_holder(
+    wall_thickness = cuvette_holder_wall_thickness,
+    cuvette_size_x = cuvette_size_x + 2*cuvette_margin_x,
+    cuvette_size_y = cuvette_size_y + 2*cuvette_margin_y,
+    size_z = box_inner_size_z,
+    lightsource_offset_z = lightpath_offset_z,
+    lightsource_hole_diameter = lightpath_hole_diameter,
+    sensor_offset_z = lightpath_offset_z,
+    sensor_hole_diameter = lightpath_hole_diameter
+  );
 }
 
 
@@ -43,6 +57,7 @@ module lid()
 {
   difference()
   {
+    // The complete lid
     sliderbox_lid(
       size_x = box_size_x,
       size_y = box_size_y,
@@ -53,8 +68,17 @@ module lid()
       holder_inset_x = lid_inset_holder
     );
 
-    // Opening for cuvette
-    // TODO
+    // Cut an opening for the cuvette
+    translate([
+      box_wall_thickness + cuvette_holder_wall_thickness - nothing,
+      box_wall_thickness + cuvette_holder_wall_thickness + cuvette_holder_inset_y - nothing,
+      -nothing
+    ])
+    cube([
+      cuvette_size_x + 2*cuvette_margin_x,
+      cuvette_size_y + 2*cuvette_margin_y,
+      box_wall_thickness + 2*nothing
+    ]);
   }
 }
 

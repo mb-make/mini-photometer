@@ -16,7 +16,8 @@ module print_test()
   // Cut away some stuff
   difference()
   {
-    casing();
+    // The complete photometer box
+    box();
 
     // Cut away the bottom plate
     translate([-nothing, -nothing, -box_size_z+cut_below_z+nothing])

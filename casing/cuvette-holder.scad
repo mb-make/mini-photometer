@@ -7,9 +7,9 @@ include <config.scad>;
  * with holes to allow for light to pass through from source to sensor
  */
 module cuvette_holder(
-          wall_thickness = 1.2,
-          size_x = cuvette_size_x + 2*cuvette_margin_x,
-          size_y = cuvette_size_y + 2*cuvette_margin_y,
+          wall_thickness = cuvette_holder_wall_thickness,
+          cuvette_size_x = cuvette_size_x + 2*cuvette_margin_x,
+          cuvette_size_y = cuvette_size_y + 2*cuvette_margin_y,
           size_z = box_inner_size_z,
           lightsource_offset_z = lightpath_offset_z,
           lightsource_hole_diameter = lightpath_hole_diameter,
@@ -17,6 +17,9 @@ module cuvette_holder(
           sensor_hole_diameter = lightpath_hole_diameter
         )
 {
+  size_x = cuvette_size_x + 2*wall_thickness;
+  size_y = cuvette_size_y + 2*wall_thickness;
+
   difference()
   {
     // A complete cube

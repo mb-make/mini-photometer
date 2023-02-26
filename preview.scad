@@ -4,10 +4,10 @@ use <electronics/assembled.scad>;
 use <print-test.scad>;
 
 
-// Simplified photometer model
+// Show simplified photometer model
 print_test();
 
-// Electronics to fit inside the photometer
+// The fully assembled electronics must fit inside the photometer preview
 translate([li + 1.0, ds, ds])
 rotate([0, -90, 0])
 electronics();
