@@ -1,6 +1,6 @@
 
-include <config.scad>;
-use <../lib/roundcube.scad>;
+include <../casing/config.scad>;
+use <cuboid.scad>;
 
 
 /**
@@ -22,11 +22,11 @@ module lid(
 	{
 		// A complete box
   	translate([0, 0, -size_z+thickness])
-		roundcube(
+		cuboid(
 			size_x = size_x,
 			size_y = size_y,
 			size_z = size_z,
-			radius = curvature_radius
+			curvature_radius = curvature_radius
 		);
 
 		// Bottom part of the box

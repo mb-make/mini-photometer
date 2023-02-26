@@ -1,7 +1,6 @@
 
 include <config.scad>;
-use <../lib/roundcube.scad>;
-use <cuvette-holder.scad>;
+use <../lib/cuboid.scad>;
 use <text.scad>;
 
 
@@ -26,8 +25,7 @@ module casing()
 {
 	difference()
 	{
-		translate([ 0, 0, 0 ])
-		roundcube(ds + bi + ds, ds + li + ds, ds + hi + dd, kr); // Außenhülle
+		cuboid(ds + bi + ds, ds + li + ds, ds + hi + dd, kr); // Außenhülle
 
 		translate([ ds, ds, ds ])
 		cube([ bi, li-0.9, hi + dd ]); // Innenraum
