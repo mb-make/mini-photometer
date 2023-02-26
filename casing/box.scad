@@ -2,55 +2,7 @@
 include <config.scad>;
 use <../lib/roundcube.scad>;
 use <cuvette-holder.scad>;
-
-
-// Beschriftungen an den Gehäuseseiten anbringen
-module beschriftungen()
-{
-	translate([ ds + bi / 2, ds + li + ds - tb, 30 ])
-	rotate([ 90, 180, 180 ])
-	{ // Hinten - Beschriftung mit HAW Photometer
-		linear_extrude(height = tb)
-		{
-			// translate ([-10,19-6.0/2,0]) haw_logo(6);
-			translate([ 1, 19, 0 ])
-			text("MAX", font = "Liberation Sans:style=Bold", size = 6.25, valign = "center", halign = "center");
-			translate([ 0, 12, 0 ])
-			text("Photometer", font = "Liberation Sans:style=Bold", size = 4.5, valign = "center", halign = "center");
-		}
-	}
-	translate([ ds + bi / 2, tb, 30 ])
-	rotate([ 90, 180, 0 ])
-	{ // Vorne - Beschriftung mit HAW Logo
-		linear_extrude(height = tb)
-		{
-			translate([ 3, 15, 0 ])
-			text("MAX", font = "Liberation Sans:style=Bold", size = 7.0, valign = "center", halign = "center");
-			translate([ 0, 6, 0 ])
-			text("Photometer", font = "Liberation Sans:style=Bold", size = 4.5, valign = "center", halign = "center");
-			// translate ([0,20,0]) haw_logo(7.0);
-		}
-	}
-
-	// translate([ tb, ds + li / 2, 30 ])
-	// rotate([ 270, 0, 90 ])
-	// { // Links - In diesem Block ist Platz für eine Gerätenummer oder ein eigenes Logo
-	// 	linear_extrude(height = tb)
-	// 	{
-	// 		translate([ 0, 15, 0 ])
-	// 		text("", font = "Liberation Sans:style=Bold", size = 6.0, valign = "center", halign = "center");
-	// 	}
-	// }
-	// translate([ 2 * ds + bi - tb, ds + li / 2, 30 ])
-	// rotate([ 90, 180, 90 ])
-	// { // Rechts - In diesem Block ist Platz für eine Gerätenummer oder ein eigenes Logo
-	// 	linear_extrude(height = tb)
-	// 	{
-	// 		translate([ 0, 15, 0 ])
-	// 		text("", font = "Liberation Sans:style=Bold", size = 6.0, valign = "center", halign = "center");
-	// 	}
-	// }
-}
+use <text.scad>;
 
 
 module arrow()
@@ -58,7 +10,7 @@ module arrow()
     linear_extrude(height = tb)
     {
         difference()
-        { // Beschriftung Pfeil
+        {
             polygon(points = [[bpf, 0], [0, bpf], [1 / 2 * bpf, bpf], [bpf / 2, bpf + lpf],
                                 [3 * bpf / 2, bpf + lpf], [3 * bpf / 2, bpf], [2 * bpf, bpf]]);
             polygon(points =
@@ -94,7 +46,8 @@ module casing()
 		translate([ ds + kk / 2 - bpf + (hls - asc - kk / 2), ds + bs + wi + kk + wi + apf, 0 ])
         arrow();
 
-		beschriftungen();
+		translate([ ds + bi / 2, ds + li + ds - tb, 30 ])
+		text();
 	}
 
 	translate([ 1.7, 0 , 0 ])
