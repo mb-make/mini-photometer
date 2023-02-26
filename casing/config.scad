@@ -24,7 +24,7 @@ box_wall_thickness = 2.0;
 
 box_inner_size_x = 38.5;
 box_inner_size_y = 35.5;
-box_inner_size_z = 26.0;
+box_inner_size_z = 28.0;
 
 box_size_x = box_inner_size_x + 2*box_wall_thickness;
 box_size_y = box_inner_size_y + 2*box_wall_thickness;
@@ -38,6 +38,8 @@ box_margin_y = 0.5;
 box_margin_z = 0.5;
 
 box_inscription_depth = 1.0;
+
+usb_margin = 1.0;
 
 /*
  * Lid parameters

@@ -11,6 +11,10 @@ use <text.scad>;
  */
 module box()
 {
+  usb_cutout_size_x = usb_size_x + 2*usb_margin;
+  usb_cutout_size_y = usb_size_y + 2*usb_margin;
+  usb_cutout_size_z = usb_size_z + 2*usb_margin;
+
   // Carve stuff in a box
   difference()
 	{
@@ -26,7 +30,18 @@ module box()
     );
 
     // Opening for USB plug
-    // TODO
+    translate([
+      box_size_x - box_wall_thickness + nothing,
+      -nothing,
+      box_wall_thickness + box_margin_z + d1mini_usb_inset_x
+    ])
+    translate([0, 0, -usb_cutout_size_x/2])
+    rotate([0, -90, 0])
+    cube([
+      usb_cutout_size_x,
+      usb_cutout_size_y,
+      usb_cutout_size_z
+    ]);
 
     // Inscription
     translate([
